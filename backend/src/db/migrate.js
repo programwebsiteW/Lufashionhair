@@ -1,0 +1,55 @@
+const pool = require('./pool');
+
+const sql = `
+CREATE TABLE IF NOT EXISTS admin_user (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  nome VARCHAR(255) DEFAULT 'Luciane',
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS clientes (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  telefone VARCHAR(30),
+  observacoes TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS servicos (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  duracao_minutos INTEGER NOT NULL DEFAULT 60,
+  preco NUMERIC(10,2),
+  ativo BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE IF NOT EXISTS agendamentos (
+  id SERIAL PRIMARY KEY,
+  cliente_id INTEGER REFERENCES clientes(id) ON DELETE SET NULL,
+  cliente_nome VARCHAR(255) NOT NULL,
+  servico_id INTEGER REFERENCES servicos(id) ON DELETE SET NULL,
+  servico_nome VARCHAR(255) NOT NULL,
+  data DATE NOT NULL,
+  hora TIME NOT NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'agendado',
+  observacoes TEXT,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_agendamentos_data ON agendamentos(data);
+`;
+
+async function migrate() {
+  try {
+    await pool.query(sql);
+    console.log('Tabelas criadas/verificadas com sucesso.');
+  } catch (err) {
+    console.error('Erro ao criar tabelas:', err);
+  } finally {
+    await pool.end();
+  }
+}
+
+migrate();
