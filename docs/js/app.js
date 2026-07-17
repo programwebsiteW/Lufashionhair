@@ -28,11 +28,13 @@ function entrarNoPainel() {
   const hoje = new Date().toISOString().slice(0, 10);
   document.getElementById('filtro-data').value = hoje;
   carregarAgenda(hoje);
+  diaSelecionado = hoje;
+  carregarCalendario();
   carregarClientes();
   carregarServicos();
 }
 
-if (getToken()) entrarNoPainel();
+if (getToken()) setTimeout(entrarNoPainel, 0);
 
 document.querySelectorAll('.nav-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -52,7 +54,67 @@ function abrirModal(titulo, corpoHtml) {
 function fecharModal() { modalFundo.classList.add('oculto'); }
 modalFundo.addEventListener('click', (e) => { if (e.target === modalFundo) fecharModal(); });
 
-document.getElementById('filtro-data').addEventListener('change', (e) => carregarAgenda(e.target.value));
+document.getElementById('filtro-data').addEventListener('change', (e) => {
+  diaSelecionado = e.target.value;
+  carregarAgenda(e.target.value);
+  desenharCalendario();
+});
+
+let mesAtual = new Date();
+let diaSelecionado = new Date().toISOString().slice(0, 10);
+let agendamentosDoMes = [];
+
+const nomesMeses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const nomesDias = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+
+function dataLocal(ano, mes, dia) {
+  return `${ano}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+}
+
+async function carregarCalendario() {
+  const inicio = dataLocal(mesAtual.getFullYear(), mesAtual.getMonth(), 1);
+  const fimData = new Date(mesAtual.getFullYear(), mesAtual.getMonth() + 1, 0);
+  const fim = dataLocal(fimData.getFullYear(), fimData.getMonth(), fimData.getDate());
+  try {
+    agendamentosDoMes = await api.listarAgendamentosPeriodo(inicio, fim);
+    desenharCalendario();
+  } catch (err) {
+    document.getElementById('calendario').innerHTML = `<p class="vazio">${err.message}</p>`;
+  }
+}
+
+function desenharCalendario() {
+  const calendario = document.getElementById('calendario');
+  document.getElementById('mes-label').textContent = `${nomesMeses[mesAtual.getMonth()]} de ${mesAtual.getFullYear()}`;
+  const primeiro = new Date(mesAtual.getFullYear(), mesAtual.getMonth(), 1);
+  const ultimo = new Date(mesAtual.getFullYear(), mesAtual.getMonth() + 1, 0);
+  let html = nomesDias.map(dia => `<div class="dia-semana">${dia}</div>`).join('');
+  for (let i = 0; i < primeiro.getDay(); i++) html += '<div class="dia-cel vazio-mes"></div>';
+  for (let dia = 1; dia <= ultimo.getDate(); dia++) {
+    const data = dataLocal(mesAtual.getFullYear(), mesAtual.getMonth(), dia);
+    const quantidade = agendamentosDoMes.filter(ag => String(ag.data).slice(0, 10) === data).length;
+    const hoje = data === new Date().toISOString().slice(0, 10);
+    html += `<div class="dia-cel ${hoje ? 'hoje' : ''} ${data === diaSelecionado ? 'selecionado' : ''}" onclick="selecionarDia('${data}')"><span class="numero-dia">${dia}</span>${quantidade ? `<span class="contador-dia">${quantidade} serviço${quantidade > 1 ? 's' : ''}</span>` : ''}</div>`;
+  }
+  calendario.innerHTML = html;
+}
+
+function selecionarDia(data) {
+  diaSelecionado = data;
+  document.getElementById('filtro-data').value = data;
+  carregarAgenda(data);
+  desenharCalendario();
+}
+
+document.getElementById('mes-anterior').addEventListener('click', () => {
+  mesAtual.setMonth(mesAtual.getMonth() - 1);
+  carregarCalendario();
+});
+
+document.getElementById('mes-proximo').addEventListener('click', () => {
+  mesAtual.setMonth(mesAtual.getMonth() + 1);
+  carregarCalendario();
+});
 
 async function carregarAgenda(data) {
   const lista = document.getElementById('lista-agendamentos');

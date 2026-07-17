@@ -29,6 +29,7 @@ const api = {
   login: (email, senha) => apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ email, senha }) }),
 
   listarAgendamentos: (data) => apiFetch(`/agendamentos?data=${data}`),
+  listarAgendamentosPeriodo: (inicio, fim) => apiFetch(`/agendamentos?inicio=${inicio}&fim=${fim}`),
   criarAgendamento: (dados) => apiFetch('/agendamentos', { method: 'POST', body: JSON.stringify(dados) }),
   atualizarAgendamento: (id, dados) => apiFetch(`/agendamentos/${id}`, { method: 'PUT', body: JSON.stringify(dados) }),
   excluirAgendamento: (id) => apiFetch(`/agendamentos/${id}`, { method: 'DELETE' }),

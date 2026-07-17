@@ -246,3 +246,18 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--roxo-escuro); 
   .btn-sair { margin: 0; }
   .conteudo { padding: 20px; }
 }
+/* Calendario mensal */
+.agenda-cabecalho { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.navegacao-mes { display:flex; align-items:center; gap:8px; margin-left:auto; }
+.btn-nav { border:none; background:var(--lilas-suave); color:var(--roxo-escuro); width:34px; height:34px; border-radius:8px; font-size:22px; cursor:pointer; }
+.mes-label { min-width:150px; text-align:center; font-weight:600; color:var(--roxo-escuro); text-transform:capitalize; }
+.calendario { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin:24px 0; }
+.dia-semana { text-align:center; color:#8a7fa3; font-size:12px; font-weight:600; padding:6px 0; }
+.dia-cel { min-height:70px; padding:8px; background:var(--branco); border:2px solid transparent; border-radius:10px; cursor:pointer; }
+.dia-cel:hover,.dia-cel.selecionado { border-color:var(--lilas); }
+.dia-cel.vazio-mes { background:transparent; cursor:default; }
+.numero-dia { color:var(--texto); font-size:13px; font-weight:600; }
+.dia-cel.hoje .numero-dia { color:var(--lilas); }
+.contador-dia { display:inline-block; margin-top:8px; padding:2px 6px; border-radius:6px; background:var(--lilas); color:white; font-size:11px; font-weight:600; }
+.dia-selecionado-titulo { color:var(--roxo-escuro); font-size:15px; }
+@media (max-width:700px) { .navegacao-mes { order:3; width:100%; justify-content:center; margin-left:0; } .calendario { gap:3px; } .dia-cel { min-height:52px; padding:5px; } }

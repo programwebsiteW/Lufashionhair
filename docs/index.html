@@ -37,11 +37,18 @@
   <main class="conteudo">
 
     <section id="tela-agenda" class="tela">
-      <div class="cabecalho">
-        <h3>Agenda do dia</h3>
+      <div class="cabecalho agenda-cabecalho">
+        <h3>Agenda</h3>
+        <div class="navegacao-mes">
+          <button id="mes-anterior" class="btn-nav">‹</button>
+          <span id="mes-label" class="mes-label"></span>
+          <button id="mes-proximo" class="btn-nav">›</button>
+        </div>
         <input type="date" id="filtro-data">
         <button id="btn-novo-agendamento" class="btn-primario">+ Novo agendamento</button>
       </div>
+      <div id="calendario" class="calendario"></div>
+      <h4 id="dia-selecionado-titulo" class="dia-selecionado-titulo"></h4>
       <div id="lista-agendamentos" class="lista"></div>
     </section>
 
