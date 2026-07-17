@@ -7,7 +7,6 @@ const authRoutes = require('./routes/auth');
 const clientesRoutes = require('./routes/clientes');
 const servicosRoutes = require('./routes/servicos');
 const agendamentosRoutes = require('./routes/agendamentos');
-const setupRoutes = require('./routes/setup');
 
 const app = express();
 
@@ -33,7 +32,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/clientes', clientesRoutes);
 app.use('/api/servicos', servicosRoutes);
 app.use('/api/agendamentos', agendamentosRoutes);
-app.use('/api/setup', setupRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);
