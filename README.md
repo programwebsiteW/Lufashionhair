@@ -1,50 +1,69 @@
-# Agenda da Luciane 💜
+# Lu Fashion Hair
 
-Sistema de agenda para controle de horários de cabelo, manicure e pedicure.
+Sistema privado para organizar a rotina profissional da Luciane.
+
+## O que o sistema faz
+
+- Login protegido para a profissional.
+- Painel com resumo do dia e do mês.
+- Agenda mensal com quantidade de atendimentos por dia.
+- Filtros por agendado, confirmado, concluído, falta e cancelado.
+- Alertas do dia para atrasos, próximo atendimento e confirmações pendentes.
+- Cadastro e edição de agendamentos.
+- Status: agendado, confirmado, em andamento, concluído, falta e cancelado.
+- Cadastro e edição de clientes, telefone e observações.
+- Atalho para confirmar horários pelo WhatsApp.
+- Cadastro de serviços com nome, duração, valor e situação ativa/desativada.
+- Catálogo inicial ampliado com serviços de cabelo, unhas, sobrancelhas e spa dos pés.
+- Previsão mensal baseada nos valores dos serviços vinculados aos agendamentos.
+- Uso em celular, tablet e computador.
 
 ## Estrutura
-- `backend/` — API em Node.js + Express + PostgreSQL
-- `frontend/` — Painel web (HTML/CSS/JS puro) em tons de lilás
 
-## Como acessar
-Só existe **um login** (o da Luciane). Ninguém mais consegue acessar sem
-email e senha corretos, e todas as rotas da agenda exigem o token de login.
+- `backend/`: API Node.js, autenticação e conexão PostgreSQL.
+- `docs/`: versão publicada no GitHub Pages.
+- `frontend/`: cópia do frontend para manutenção e futura migração.
 
-## Rodando local
-```bash
-cd backend
-npm install
-cp .env.example .env   # preencha com seus dados
-npm run migrate        # cria as tabelas
-npm run create-admin   # cria o login da Luciane (usa ADMIN_EMAIL/ADMIN_PASSWORD do .env)
-npm run dev             # sobe a API em localhost:3000
-```
+Os arquivos de `docs/` e `frontend/` devem permanecer iguais.
 
-Depois abra `frontend/index.html` no navegador (ou use a extensão Live Server do VS Code).
+## Publicação atual
 
-## Publicando
+- Site: `https://programwebsitew.github.io/Lufashionhair/`
+- API: `https://agenda-luciane-api.onrender.com`
+- No Render, `FRONTEND_URL` deve ser `https://programwebsitew.github.io`.
 
-### 1. Banco de dados (Render)
-1. No Render, crie um **PostgreSQL** novo.
-2. Copie a **External Database URL**.
+## Atualizar o sistema
 
-### 2. Backend (Render)
-1. Suba a pasta `backend` num repositório GitHub.
-2. No Render, crie um **Web Service** apontando pro repositório.
-3. Configure as variáveis de ambiente (mesmas do `.env.example`):
-   `DATABASE_URL`, `JWT_SECRET`, `FRONTEND_URL`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`.
-4. Build command: `npm install`
-5. Start command: `npm start`
-6. Depois do primeiro deploy, rode uma vez (Render Shell):
-   `npm run migrate && npm run create-admin`
+Ao alterar o frontend, envie ao GitHub os arquivos modificados dentro de `docs/` e repita as mesmas alterações em `frontend/`.
 
-### 3. Frontend
-1. Troque a linha `API_URL` em `frontend/js/api.js` pela URL do backend no Render.
-2. Suba o frontend no GitHub Pages, Netlify ou Vercel — todos gratuitos.
-3. Coloque a URL do frontend na variável `FRONTEND_URL` do backend (pro CORS liberar o acesso).
+Ao alterar o backend, envie os arquivos modificados dentro de `backend/`. O Render deve iniciar um novo deploy automaticamente após o envio ao GitHub.
 
-## Segurança
-- Senha da Luciane fica guardada com hash (bcrypt), nunca em texto puro.
-- Login libera um token (JWT) que expira em 12h.
-- Toda rota de clientes, serviços e agendamentos exige esse token — sem ele, a API recusa o acesso.
-- Limite de tentativas de login pra evitar ataque de força bruta.
+Nunca envie um arquivo `.env`, senha, token, `DATABASE_URL` ou `JWT_SECRET` ao GitHub. O arquivo `.env.example` contém apenas exemplos e pode permanecer no repositório.
+
+## Dados e cancelamento da assinatura
+
+O código e a infraestrutura ficam sob controle do fornecedor do sistema. Os dados cadastrados pertencem à cliente.
+
+Se a mensalidade ficar dois meses em atraso, o acesso poderá ser suspenso. A suspensão não deve apagar os dados imediatamente. Antes da exclusão definitiva, deve existir um prazo contratual para a cliente solicitar exportação dos próprios dados.
+
+Sugestão de regra contratual: manter os dados por 90 dias após a suspensão, permitir uma exportação em CSV ou Excel durante esse prazo e excluir os dados depois, salvo obrigação legal de conservação.
+
+## Limitações que precisam ser acompanhadas
+
+- A hospedagem gratuita do backend pode adormecer após ficar sem uso, deixando o primeiro login mais lento.
+- Banco gratuito não deve ser tratado como armazenamento permanente sem conferir prazo de validade e backups.
+- GitHub Pages não é a hospedagem indicada para oferecer um SaaS comercial por tempo indeterminado.
+- Antes de iniciar a cobrança comercial, migrar o frontend para hospedagem permitida para uso comercial e confirmar um banco permanente com backup.
+
+## Testes antes de cada entrega
+
+1. Abrir o site no celular e no computador.
+2. Fazer login.
+3. Criar e editar uma cliente de teste.
+4. Criar e editar um serviço de teste.
+5. Criar e editar um agendamento de teste.
+6. Marcar como concluído e cancelado.
+7. Testar o botão do WhatsApp.
+8. Confirmar que o calendário troca de mês.
+9. Conferir os dados após sair e entrar novamente.
+10. Conferir os logs do Render e fazer backup do banco.

@@ -1,85 +1,121 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agenda • Luciane</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2d2438">
+  <title>Lu Fashion Hair | Gestão do salão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-<div id="tela-login" class="tela-login">
-  <div class="card-login">
-    <h1>Agenda <span>Luciane</span></h1>
-    <p class="subtitulo">Cabelo · Manicure · Pedicure</p>
-    <form id="form-login">
-      <input type="email" id="login-email" placeholder="Email" required>
-      <input type="password" id="login-senha" placeholder="Senha" required>
-      <button type="submit">Entrar</button>
-      <p class="erro" id="login-erro"></p>
-    </form>
+  <div id="tela-login" class="tela-login">
+    <div class="card-login">
+      <div class="marca-login">LF</div>
+      <p class="sobrelinha">ÁREA DA PROFISSIONAL</p>
+      <h1>Lu Fashion Hair</h1>
+      <p class="subtitulo">Sua agenda e seus clientes em um só lugar.</p>
+      <form id="form-login">
+        <label for="login-email">E-mail</label>
+        <input type="email" id="login-email" placeholder="seu@email.com" autocomplete="username" required>
+        <label for="login-senha">Senha</label>
+        <input type="password" id="login-senha" placeholder="Digite sua senha" autocomplete="current-password" required>
+        <button type="submit" id="btn-login">Entrar</button>
+        <p class="erro" id="login-erro" role="alert"></p>
+      </form>
+    </div>
   </div>
-</div>
 
-<div id="painel" class="painel oculto">
-  <aside class="menu-lateral">
-    <h2>Agenda <span>Luciane</span></h2>
-    <nav>
-      <button class="nav-btn ativo" data-tela="agenda">📅 Agenda</button>
-      <button class="nav-btn" data-tela="clientes">👤 Clientes</button>
-      <button class="nav-btn" data-tela="servicos">💅 Serviços</button>
-    </nav>
-    <button id="btn-sair" class="btn-sair">Sair</button>
-  </aside>
+  <div id="painel" class="painel oculto">
+    <aside class="menu-lateral">
+      <div class="marca-painel"><span>LF</span><div><strong>Lu Fashion Hair</strong><small>Gestão do salão</small></div></div>
+      <nav aria-label="Menu principal">
+        <button class="nav-btn ativo" data-tela="inicio"><span>⌂</span> Início</button>
+        <button class="nav-btn" data-tela="agenda"><span>▣</span> Agenda</button>
+        <button class="nav-btn" data-tela="clientes"><span>◎</span> Clientes</button>
+        <button class="nav-btn" data-tela="servicos"><span>◇</span> Serviços</button>
+      </nav>
+      <button id="btn-sair" class="btn-sair">Sair da conta</button>
+    </aside>
 
-  <main class="conteudo">
-
-    <section id="tela-agenda" class="tela">
-      <div class="cabecalho agenda-cabecalho">
-        <h3>Agenda</h3>
-        <div class="navegacao-mes">
-          <button id="mes-anterior" class="btn-nav">‹</button>
-          <span id="mes-label" class="mes-label"></span>
-          <button id="mes-proximo" class="btn-nav">›</button>
+    <main class="conteudo">
+      <section id="tela-inicio" class="tela">
+        <div class="topo-pagina">
+          <div><p class="sobrelinha">RESUMO DO DIA</p><h2 id="saudacao">Olá, Lu!</h2><p id="data-hoje" class="texto-suave"></p></div>
+          <button id="btn-agendar-inicio" class="btn-primario">+ Novo agendamento</button>
         </div>
-        <input type="date" id="filtro-data">
-        <button id="btn-novo-agendamento" class="btn-primario">+ Novo agendamento</button>
-      </div>
-      <div id="calendario" class="calendario"></div>
-      <h4 id="dia-selecionado-titulo" class="dia-selecionado-titulo"></h4>
-      <div id="lista-agendamentos" class="lista"></div>
-    </section>
+        <div class="metricas">
+          <article class="metrica"><span>Hoje</span><strong id="metrica-hoje">0</strong><small>agendamentos</small></article>
+          <article class="metrica"><span>Próximos</span><strong id="metrica-futuros">0</strong><small>serviços neste mês</small></article>
+          <article class="metrica"><span>Concluídos</span><strong id="metrica-concluidos">0</strong><small>neste mês</small></article>
+          <article class="metrica destaque"><span>Previsão do mês</span><strong id="metrica-valor">R$ 0,00</strong><small>com valores cadastrados</small></article>
+        </div>
+        <div id="avisos-operacionais" class="avisos-operacionais" aria-live="polite"></div>
+        <div class="bloco">
+          <div class="titulo-bloco"><div><h3>Próximos atendimentos</h3><p>O que vem pela frente.</p></div><button class="btn-texto" data-ir="agenda">Ver agenda completa</button></div>
+          <div id="lista-proximos" class="lista"></div>
+        </div>
+      </section>
 
-    <section id="tela-clientes" class="tela oculto">
-      <div class="cabecalho">
-        <h3>Clientes</h3>
-        <input type="text" id="busca-cliente" placeholder="Buscar cliente...">
-        <button id="btn-novo-cliente" class="btn-primario">+ Novo cliente</button>
-      </div>
-      <div id="lista-clientes" class="lista"></div>
-    </section>
+      <section id="tela-agenda" class="tela oculto">
+        <div class="topo-pagina agenda-topo">
+          <div><p class="sobrelinha">ORGANIZAÇÃO</p><h2>Agenda</h2><p class="texto-suave">Veja o mês, escolha um dia e organize os horários.</p></div>
+          <button id="btn-novo-agendamento" class="btn-primario">+ Novo agendamento</button>
+        </div>
+        <div class="barra-agenda">
+          <button id="mes-anterior" class="btn-nav" aria-label="Mês anterior">‹</button>
+          <strong id="mes-label"></strong>
+          <button id="mes-proximo" class="btn-nav" aria-label="Próximo mês">›</button>
+          <button id="btn-hoje" class="btn-secundario">Hoje</button>
+          <input type="date" id="filtro-data" aria-label="Escolher data">
+        </div>
+        <div class="filtros-status" aria-label="Filtrar atendimentos">
+          <button class="filtro-status ativo" data-status="todos">Todos</button>
+          <button class="filtro-status" data-status="agendado">Agendados</button>
+          <button class="filtro-status" data-status="confirmado">Confirmados</button>
+          <button class="filtro-status" data-status="concluido">Concluídos</button>
+          <button class="filtro-status" data-status="faltou">Faltas</button>
+          <button class="filtro-status" data-status="cancelado">Cancelados</button>
+        </div>
+        <div id="calendario" class="calendario"></div>
+        <div class="bloco">
+          <div class="titulo-bloco"><div><h3 id="dia-selecionado-titulo">Atendimentos do dia</h3><p id="resumo-dia"></p></div></div>
+          <div id="lista-agendamentos" class="lista"></div>
+        </div>
+      </section>
 
-    <section id="tela-servicos" class="tela oculto">
-      <div class="cabecalho">
-        <h3>Serviços</h3>
-        <button id="btn-novo-servico" class="btn-primario">+ Novo serviço</button>
-      </div>
-      <div id="lista-servicos" class="lista"></div>
-    </section>
+      <section id="tela-clientes" class="tela oculto">
+        <div class="topo-pagina">
+          <div><p class="sobrelinha">RELACIONAMENTO</p><h2>Clientes</h2><p class="texto-suave">Contatos e observações importantes de cada cliente.</p></div>
+          <button id="btn-novo-cliente" class="btn-primario">+ Nova cliente</button>
+        </div>
+        <div class="barra-busca"><input type="search" id="busca-cliente" placeholder="Buscar pelo nome..."></div>
+        <div id="lista-clientes" class="lista grade-lista"></div>
+      </section>
 
-  </main>
-</div>
-
-<div id="modal-fundo" class="modal-fundo oculto">
-  <div class="modal">
-    <h3 id="modal-titulo"></h3>
-    <div id="modal-corpo"></div>
+      <section id="tela-servicos" class="tela oculto">
+        <div class="topo-pagina">
+          <div><p class="sobrelinha">CATÁLOGO</p><h2>Serviços e valores</h2><p class="texto-suave">Cadastre alisamento, progressiva, unhas e todos os trabalhos oferecidos.</p></div>
+          <button id="btn-novo-servico" class="btn-primario">+ Novo serviço</button>
+        </div>
+        <div class="aviso"><strong>Dica:</strong> informe duração e valor para organizar melhor a agenda e calcular a previsão do mês.</div>
+        <div id="lista-servicos" class="lista grade-lista"></div>
+      </section>
+    </main>
   </div>
-</div>
 
-<script src="js/api.js"></script>
-<script src="js/app.js"></script>
+  <div id="modal-fundo" class="modal-fundo oculto" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <div class="modal">
+      <button id="btn-fechar-modal" class="fechar-modal" aria-label="Fechar">×</button>
+      <h3 id="modal-titulo"></h3>
+      <div id="modal-corpo"></div>
+    </div>
+  </div>
+  <div id="toast" class="toast oculto" role="status"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

@@ -12,12 +12,17 @@ async function apiFetch(caminho, opcoes = {}) {
   };
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
-  const resposta = await fetch(`${API_URL}${caminho}`, { ...opcoes, headers });
+  let resposta;
+  try {
+    resposta = await fetch(`${API_URL}${caminho}`, { ...opcoes, headers });
+  } catch (_) {
+    throw new Error('Não foi possível conectar ao sistema. Aguarde um minuto e tente novamente.');
+  }
 
   if (resposta.status === 401) {
     localStorage.removeItem('token');
     location.reload();
-    return;
+    throw new Error('Sua sessão terminou. Entre novamente.');
   }
 
   const dados = await resposta.json().catch(() => ({}));
