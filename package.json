@@ -1,0 +1,11 @@
+{
+  "name": "lu-fashion-hair",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-static.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

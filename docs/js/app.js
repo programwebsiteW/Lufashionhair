@@ -93,8 +93,7 @@ document.getElementById('form-login').addEventListener('submit', async evento =>
 });
 
 document.getElementById('btn-sair').addEventListener('click', () => {
-  localStorage.removeItem('token');
-  location.reload();
+  api.logout().finally(() => location.reload());
 });
 
 async function entrarNoPainel() {
