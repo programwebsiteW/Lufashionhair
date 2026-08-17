@@ -37,6 +37,7 @@
         <button class="nav-btn" data-tela="clientes"><span>◎</span> Clientes</button>
         <button class="nav-btn" data-tela="servicos"><span>◇</span> Serviços</button>
         <button class="nav-btn" data-tela="financeiro"><span>R$</span> Financeiro</button>
+        <button class="nav-btn" data-tela="despesas"><span>−</span> Despesas</button>
         <button class="nav-btn" data-tela="resumos"><span>≡</span> Resumos</button>
         <button class="nav-btn" data-tela="lixeira"><span>♲</span> Lixeira</button>
       </nav>
@@ -110,8 +111,7 @@
 
       <section id="tela-financeiro" class="tela oculto">
         <div class="topo-pagina">
-          <div><p class="sobrelinha">CONTROLE</p><h2>Financeiro</h2><p class="texto-suave">Recebimentos dos atendimentos e despesas do salão.</p></div>
-          <button id="btn-nova-despesa" class="btn-primario">+ Nova despesa</button>
+          <div><p class="sobrelinha">CONTROLE</p><h2>Financeiro</h2><p class="texto-suave">Recebimentos dos atendimentos e resultado do salão.</p></div>
         </div>
         <div class="barra-filtro"><label for="financeiro-mes">Mês</label><input type="month" id="financeiro-mes"></div>
         <div class="metricas financeiro-metricas">
@@ -120,10 +120,20 @@
           <article class="metrica"><span>Despesas</span><strong id="fin-despesas">R$ 0,00</strong><small>pagas no mês</small></article>
           <article class="metrica"><span>Saldo</span><strong id="fin-saldo">R$ 0,00</strong><small>recebido menos despesas</small></article>
         </div>
-        <div class="duas-colunas">
-          <div class="bloco"><div class="titulo-bloco"><div><h3>Pagamentos</h3><p>Registre quando e como recebeu.</p></div></div><div id="lista-pagamentos" class="lista"></div></div>
-          <div class="bloco"><div class="titulo-bloco"><div><h3>Despesas</h3><p>Produtos, materiais e contas.</p></div></div><div id="lista-despesas" class="lista"></div></div>
+        <div class="bloco"><div class="titulo-bloco"><div><h3>Pagamentos</h3><p>Registre, edite ou exclua o recebimento.</p></div></div><div id="lista-pagamentos" class="lista"></div></div>
+      </section>
+
+      <section id="tela-despesas" class="tela oculto">
+        <div class="topo-pagina">
+          <div><p class="sobrelinha">SAÍDAS</p><h2>Despesas</h2><p class="texto-suave">Produtos, materiais e contas do salão.</p></div>
+          <button id="btn-nova-despesa" class="btn-primario">+ Nova despesa</button>
         </div>
+        <div class="barra-filtro"><label for="despesas-mes">Mês</label><input type="month" id="despesas-mes"></div>
+        <div class="metricas financeiro-metricas">
+          <article class="metrica"><span>Despesas pagas</span><strong id="despesas-total">R$ 0,00</strong><small>total do mês</small></article>
+          <article class="metrica"><span>Despesas pendentes</span><strong id="despesas-pendentes">R$ 0,00</strong><small>a pagar</small></article>
+        </div>
+        <div class="bloco"><div class="titulo-bloco"><div><h3>Lista de despesas</h3><p>Edite ou exclua qualquer lançamento.</p></div></div><div id="lista-despesas" class="lista"></div></div>
       </section>
 
       <section id="tela-resumos" class="tela oculto">

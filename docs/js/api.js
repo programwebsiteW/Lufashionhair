@@ -120,8 +120,11 @@ const api = {
   criarServico: dados => supabaseFetch('/rest/v1/servicos?select=*', { method:'POST', headers:{ Prefer:'return=representation' }, body:JSON.stringify(dados) }).then(lista => lista[0]),
   atualizarServico: (id, dados) => supabaseFetch(`/rest/v1/servicos?id=eq.${Number(id)}&select=*`, { method:'PATCH', headers:{ Prefer:'return=representation' }, body:JSON.stringify({ nome:dados.nome, duracao_minutos:dados.duracao_minutos, preco:dados.preco, ativo:true, updated_at:new Date().toISOString() }) }).then(lista => lista[0]),
   excluirServico: id => supabaseFetch(`/rest/v1/servicos?id=eq.${Number(id)}`, { method:'DELETE' }),
+  excluirAgendamentosDoServico: id => supabaseFetch(`/rest/v1/agendamentos?servico_id=eq.${Number(id)}`, { method:'DELETE' }),
 
+  criarPagamento: dados => supabaseFetch('/rest/v1/pagamentos?select=*', { method:'POST', headers:{ Prefer:'return=representation' }, body:JSON.stringify(dados) }).then(lista => lista[0]),
   atualizarPagamento: (id, dados) => supabaseFetch(`/rest/v1/pagamentos?id=eq.${Number(id)}&select=*`, { method:'PATCH', headers:{ Prefer:'return=representation' }, body:JSON.stringify({ ...dados, updated_at:new Date().toISOString() }) }).then(lista => lista[0]),
+  excluirPagamento: id => supabaseFetch(`/rest/v1/pagamentos?id=eq.${Number(id)}`, { method:'DELETE' }),
   listarPagamentosPeriodo: (inicio, fim) => supabaseFetch(`/rest/v1/pagamentos?select=*,agendamentos!inner(id,data,hora,status,cliente_nome,servico_nome)&agendamentos.data=gte.${encodeURIComponent(inicio)}&agendamentos.data=lte.${encodeURIComponent(fim)}&order=updated_at.desc`),
 
   listarDespesasPeriodo: (inicio, fim) => supabaseFetch(`/rest/v1/despesas?select=*&data=gte.${encodeURIComponent(inicio)}&data=lte.${encodeURIComponent(fim)}&order=data.desc,created_at.desc`),
