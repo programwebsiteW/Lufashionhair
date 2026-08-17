@@ -31,3 +31,14 @@
   .item-card .item-info{flex:1 1 180px}
   .item-card .acoes{flex:1 0 100%;width:auto;padding-left:0;justify-content:flex-start}
 }
+
+/* Calendário simples e claro */
+.dia-cel{display:flex;flex-direction:column;align-items:flex-start;position:relative;text-align:left;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+.dia-cel:hover{transform:translateY(-1px);border-color:#c9b9d3;box-shadow:0 5px 14px rgba(52,42,64,.08)}
+.dia-cel.selecionado{background:#fff;border:2px solid var(--uva);padding:7px;box-shadow:0 7px 18px rgba(52,42,64,.14)}
+.dia-cel.selecionado .numero-dia{background:var(--uva);color:#fff}
+.contador-dia{display:flex;align-items:center;gap:5px;width:max-content;max-width:100%;margin-top:auto;padding:4px 7px;border-radius:999px;background:#f2edf4;color:var(--uva);font-size:10px;font-weight:700;white-space:nowrap}
+.contador-dia::before{content:'';width:6px;height:6px;flex:0 0 6px;border-radius:50%;background:var(--lilas)}
+.contador-dia::after{content:none}
+@media(max-width:720px){.dia-cel.selecionado{padding:4px}.contador-dia{font-size:9px;padding:3px 5px}.contador-dia::before{width:5px;height:5px;flex-basis:5px}}
+@media(max-width:390px){.contador-dia{font-size:0;padding:4px}.contador-dia::before{width:7px;height:7px;flex-basis:7px}}

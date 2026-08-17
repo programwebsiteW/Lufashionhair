@@ -136,7 +136,7 @@ function desenharCalendario(){
   for(let i=0;i<primeiro.getDay();i++)html+='<div class="dia-cel vazio-mes"></div>';
   for(let dia=1;dia<=ultimo.getDate();dia++){
     const data=dataISO(mesAtual.getFullYear(),mesAtual.getMonth(),dia); const qtd=agendamentosDoMes.filter(a=>dataDoRegistro(a.data)===data&&a.status!=='cancelado').length;
-    html+=`<button class="dia-cel ${data===hojeISO()?'hoje':''} ${data===diaSelecionado?'selecionado':''}" onclick="selecionarDia('${data}')"><span class="numero-dia">${dia}</span>${qtd?`<span class="contador-dia">${qtd} atendimento${qtd>1?'s':''}</span>`:''}</button>`;
+    html+=`<button class="dia-cel ${data===hojeISO()?'hoje':''} ${data===diaSelecionado?'selecionado':''}" aria-label="Dia ${dia}, ${qtd} atendimento${qtd===1?'':'s'}" onclick="selecionarDia('${data}')"><span class="numero-dia">${dia}</span>${qtd?`<span class="contador-dia">${qtd} marcado${qtd>1?'s':''}</span>`:''}</button>`;
   }
   document.getElementById('calendario').innerHTML=html;
 }
