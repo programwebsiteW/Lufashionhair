@@ -121,6 +121,7 @@ const api = {
   atualizarServico: (id, dados) => supabaseFetch(`/rest/v1/servicos?id=eq.${Number(id)}&select=*`, { method:'PATCH', headers:{ Prefer:'return=representation' }, body:JSON.stringify({ nome:dados.nome, duracao_minutos:dados.duracao_minutos, preco:dados.preco, ativo:true, updated_at:new Date().toISOString() }) }).then(lista => lista[0]),
   excluirServico: id => supabaseFetch(`/rest/v1/servicos?id=eq.${Number(id)}`, { method:'DELETE' }),
   excluirAgendamentosDoServico: id => supabaseFetch(`/rest/v1/agendamentos?servico_id=eq.${Number(id)}`, { method:'DELETE' }),
+  excluirAgendamentosOrfaosPorNome: nome => supabaseFetch(`/rest/v1/agendamentos?servico_id=is.null&servico_nome=eq.${encodeURIComponent(nome)}`, { method:'DELETE' }),
 
   criarPagamento: dados => supabaseFetch('/rest/v1/pagamentos?select=*', { method:'POST', headers:{ Prefer:'return=representation' }, body:JSON.stringify(dados) }).then(lista => lista[0]),
   atualizarPagamento: (id, dados) => supabaseFetch(`/rest/v1/pagamentos?id=eq.${Number(id)}&select=*`, { method:'PATCH', headers:{ Prefer:'return=representation' }, body:JSON.stringify({ ...dados, updated_at:new Date().toISOString() }) }).then(lista => lista[0]),
