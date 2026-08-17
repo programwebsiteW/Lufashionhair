@@ -71,6 +71,10 @@
 }
 
 /* Entrada escura e direta */
+.puxar-atualizar{position:fixed;z-index:250;left:50%;top:10px;transform:translate(-50%,-70px);padding:9px 15px;border-radius:99px;background:var(--uva);color:#fff;box-shadow:0 6px 18px rgba(52,42,64,.24);font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:transform .18s ease,opacity .18s ease}
+.puxar-atualizar.visivel{opacity:1}.puxar-atualizar.pronto{background:var(--lilas)}.puxar-atualizar.atualizando{transform:translate(-50%,0)!important;opacity:1}
+
+/* Entrada escura e direta */
 .tela-login{background:radial-gradient(circle at 50% 0,#241c29 0,transparent 42%),#070608}
 .card-login{background:#121015;border:1px solid #2b2530;color:#f7f3f8;box-shadow:0 28px 80px rgba(0,0,0,.7)}
 .card-login h1{color:#fff;margin-bottom:20px}

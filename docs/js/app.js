@@ -250,5 +250,16 @@ function desenharRanking(id,itens,campo){const contagem={};itens.forEach(i=>cont
 
 async function atualizarSistema(){await carregarServicos();await carregarCalendario();await Promise.all([carregarAgenda(diaSelecionado),carregarInicio(),carregarFinanceiro(),carregarDespesas(),carregarResumos()]);}
 
+function ativarPuxarParaAtualizar(){
+  const aviso=document.getElementById('puxar-atualizar');let inicioY=0;let distancia=0;let acompanhando=false;let atualizando=false;
+  const painelAberto=()=>!document.getElementById('painel').classList.contains('oculto')&&modalFundo.classList.contains('oculto');
+  document.addEventListener('touchstart',e=>{if(!atualizando&&painelAberto()&&window.scrollY<=0&&e.touches.length===1){inicioY=e.touches[0].clientY;distancia=0;acompanhando=true;}},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!acompanhando)return;distancia=e.touches[0].clientY-inicioY;if(distancia<=0){acompanhando=false;aviso.className='puxar-atualizar';return;}if(distancia>8)e.preventDefault();const deslocamento=Math.min(distancia*.45,64);aviso.style.transform=`translate(-50%,${deslocamento-58}px)`;aviso.textContent=distancia>=90?'Solte para atualizar':'Puxe para atualizar';aviso.className=`puxar-atualizar visivel${distancia>=90?' pronto':''}`;},{passive:false});
+  document.addEventListener('touchend',async()=>{if(!acompanhando)return;acompanhando=false;if(distancia<90){aviso.className='puxar-atualizar';aviso.style.transform='';return;}atualizando=true;aviso.textContent='Atualizando...';aviso.className='puxar-atualizar atualizando';aviso.style.transform='';try{await atualizarSistema();aviso.textContent='Tudo atualizado';mostrarToast('Dados atualizados.');}catch(err){aviso.textContent='Não foi possível atualizar';mostrarToast(err.message);}finally{setTimeout(()=>{aviso.className='puxar-atualizar';atualizando=false;},900);}}, {passive:true});
+  document.addEventListener('touchcancel',()=>{acompanhando=false;aviso.className='puxar-atualizar';aviso.style.transform='';},{passive:true});
+}
+
+ativarPuxarParaAtualizar();
+
 if(getToken())setTimeout(()=>entrarNoPainel().catch(()=>{}),0);
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
