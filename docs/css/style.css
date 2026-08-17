@@ -69,3 +69,18 @@
   .campo input,.campo select,.campo textarea{min-height:46px}
   .toast{left:12px;right:12px;bottom:130px;text-align:center}
 }
+
+/* Entrada escura e direta */
+.tela-login{background:radial-gradient(circle at 50% 0,#241c29 0,transparent 42%),#070608}
+.card-login{background:#121015;border:1px solid #2b2530;color:#f7f3f8;box-shadow:0 28px 80px rgba(0,0,0,.7)}
+.card-login h1{color:#fff;margin-bottom:20px}
+.card-login .sobrelinha{color:#b89bc8}
+.card-login label{color:#eee7f1}
+.card-login input{background:#1d1920;border-color:#3a323f;color:#fff;min-height:48px}
+.card-login input::placeholder{color:#8f8593}
+.card-login input:focus{outline-color:rgba(184,155,200,.22);border-color:#a987bb}
+.card-login input:-webkit-autofill{-webkit-text-fill-color:#fff;box-shadow:0 0 0 1000px #1d1920 inset}
+#btn-login{min-height:48px;border:0;border-radius:11px;background:#f4eff6;color:#171219;font-weight:800;cursor:pointer}
+#btn-login:hover{background:#fff}
+.card-login .erro{color:#ffadb5}
+@media(max-width:480px){.tela-login{padding:14px}.card-login{padding:30px 24px;border-radius:20px}}
