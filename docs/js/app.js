@@ -162,7 +162,7 @@ async function carregarAgenda(data){
 }
 document.querySelectorAll('.filtro-status').forEach(b=>b.addEventListener('click',()=>{filtroStatusAgenda=b.dataset.status;document.querySelectorAll('.filtro-status').forEach(x=>x.classList.toggle('ativo',x===b));carregarAgenda(diaSelecionado);}));
 
-function opcoesDuracao(selecionado=60){return [30,45,60,75,90,120,150,180,210,240,300,360].map(m=>`<option value="${m}" ${Number(selecionado)===m?'selected':''}>${duracaoTexto(m)}</option>`).join('');}
+function opcoesDuracao(selecionado=60){return [15,20,25,30,45,60,75,90,120,150,180,210,240,300,360].map(m=>`<option value="${m}" ${Number(selecionado)===m?'selected':''}>${duracaoTexto(m)}</option>`).join('');}
 function formularioAgendamento(item={}){
   const clientes=clientesCache.map(c=>`<option value="${c.id}" ${Number(item.cliente_id)===Number(c.id)?'selected':''}>${escapar(c.nome)}</option>`).join('');
   const servicos=servicosCache.map(s=>`<option value="${s.id}" ${Number(item.servico_id)===Number(s.id)?'selected':''}>${escapar(s.nome)} · ${duracaoTexto(s.duracao_minutos)} · ${s.preco==null?'sem valor':dinheiro(s.preco)}</option>`).join('');
