@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#2d2438">
+  <meta name="theme-color" content="#342a40">
   <title>Lu Fashion Hair | Gestão do salão</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,12 +14,12 @@
   <div id="tela-login" class="tela-login">
     <div class="card-login">
       <div class="marca-login">LF</div>
-      <p class="sobrelinha">ÁREA DA PROFISSIONAL</p>
+      <p class="sobrelinha">ÁREA DA LU</p>
       <h1>Lu Fashion Hair</h1>
-      <p class="subtitulo">Sua agenda e seus clientes em um só lugar.</p>
+      <p class="subtitulo">Agenda, clientes e financeiro em um só lugar.</p>
       <form id="form-login">
-        <label for="login-email">E-mail</label>
-        <input type="email" id="login-email" placeholder="seu@email.com" autocomplete="username" required>
+        <label for="login-usuario">Usuário</label>
+        <input type="text" id="login-usuario" value="lufashionhair" autocomplete="username" required>
         <label for="login-senha">Senha</label>
         <input type="password" id="login-senha" placeholder="Digite sua senha" autocomplete="current-password" required>
         <button type="submit" id="btn-login">Entrar</button>
@@ -36,6 +36,9 @@
         <button class="nav-btn" data-tela="agenda"><span>▣</span> Agenda</button>
         <button class="nav-btn" data-tela="clientes"><span>◎</span> Clientes</button>
         <button class="nav-btn" data-tela="servicos"><span>◇</span> Serviços</button>
+        <button class="nav-btn" data-tela="financeiro"><span>R$</span> Financeiro</button>
+        <button class="nav-btn" data-tela="resumos"><span>≡</span> Resumos</button>
+        <button class="nav-btn" data-tela="lixeira"><span>♲</span> Lixeira</button>
       </nav>
       <button id="btn-sair" class="btn-sair">Sair da conta</button>
     </aside>
@@ -47,10 +50,10 @@
           <button id="btn-agendar-inicio" class="btn-primario">+ Novo agendamento</button>
         </div>
         <div class="metricas">
-          <article class="metrica"><span>Hoje</span><strong id="metrica-hoje">0</strong><small>agendamentos</small></article>
-          <article class="metrica"><span>Próximos</span><strong id="metrica-futuros">0</strong><small>serviços neste mês</small></article>
-          <article class="metrica"><span>Concluídos</span><strong id="metrica-concluidos">0</strong><small>neste mês</small></article>
-          <article class="metrica destaque"><span>Previsão do mês</span><strong id="metrica-valor">R$ 0,00</strong><small>com valores cadastrados</small></article>
+          <article class="metrica"><span>Hoje</span><strong id="metrica-hoje">0</strong><small>atendimentos</small></article>
+          <article class="metrica"><span>Próximos</span><strong id="metrica-futuros">0</strong><small>neste mês</small></article>
+          <article class="metrica"><span>A receber</span><strong id="metrica-pendente">R$ 0,00</strong><small>neste mês</small></article>
+          <article class="metrica destaque"><span>Recebido no mês</span><strong id="metrica-recebido">R$ 0,00</strong><small>pagamentos registrados</small></article>
         </div>
         <div id="avisos-operacionais" class="avisos-operacionais" aria-live="polite"></div>
         <div class="bloco">
@@ -61,7 +64,7 @@
 
       <section id="tela-agenda" class="tela oculto">
         <div class="topo-pagina agenda-topo">
-          <div><p class="sobrelinha">ORGANIZAÇÃO</p><h2>Agenda</h2><p class="texto-suave">Veja o mês, escolha um dia e organize os horários.</p></div>
+          <div><p class="sobrelinha">ORGANIZAÇÃO</p><h2>Agenda</h2><p class="texto-suave">Escolha o dia, veja os horários e registre o atendimento.</p></div>
           <button id="btn-novo-agendamento" class="btn-primario">+ Novo agendamento</button>
         </div>
         <div class="barra-agenda">
@@ -75,6 +78,7 @@
           <button class="filtro-status ativo" data-status="todos">Todos</button>
           <button class="filtro-status" data-status="agendado">Agendados</button>
           <button class="filtro-status" data-status="confirmado">Confirmados</button>
+          <button class="filtro-status" data-status="em_andamento">Em andamento</button>
           <button class="filtro-status" data-status="concluido">Concluídos</button>
           <button class="filtro-status" data-status="faltou">Faltas</button>
           <button class="filtro-status" data-status="cancelado">Cancelados</button>
@@ -88,7 +92,7 @@
 
       <section id="tela-clientes" class="tela oculto">
         <div class="topo-pagina">
-          <div><p class="sobrelinha">RELACIONAMENTO</p><h2>Clientes</h2><p class="texto-suave">Contatos e observações importantes de cada cliente.</p></div>
+          <div><p class="sobrelinha">RELACIONAMENTO</p><h2>Clientes</h2><p class="texto-suave">Contatos, preferências e histórico de cada cliente.</p></div>
           <button id="btn-novo-cliente" class="btn-primario">+ Nova cliente</button>
         </div>
         <div class="barra-busca"><input type="search" id="busca-cliente" placeholder="Buscar pelo nome..."></div>
@@ -97,11 +101,45 @@
 
       <section id="tela-servicos" class="tela oculto">
         <div class="topo-pagina">
-          <div><p class="sobrelinha">CATÁLOGO</p><h2>Serviços e valores</h2><p class="texto-suave">Cadastre alisamento, progressiva, unhas e todos os trabalhos oferecidos.</p></div>
+          <div><p class="sobrelinha">CATÁLOGO</p><h2>Serviços e valores</h2><p class="texto-suave">Os valores e durações usados automaticamente na agenda.</p></div>
           <button id="btn-novo-servico" class="btn-primario">+ Novo serviço</button>
         </div>
-        <div class="aviso"><strong>Dica:</strong> informe duração e valor para organizar melhor a agenda e calcular a previsão do mês.</div>
+        <div class="aviso"><strong>Funciona junto:</strong> ao escolher um serviço na agenda, duração e valor entram automaticamente.</div>
         <div id="lista-servicos" class="lista grade-lista"></div>
+      </section>
+
+      <section id="tela-financeiro" class="tela oculto">
+        <div class="topo-pagina">
+          <div><p class="sobrelinha">CONTROLE</p><h2>Financeiro</h2><p class="texto-suave">Recebimentos dos atendimentos e despesas do salão.</p></div>
+          <button id="btn-nova-despesa" class="btn-primario">+ Nova despesa</button>
+        </div>
+        <div class="barra-filtro"><label for="financeiro-mes">Mês</label><input type="month" id="financeiro-mes"></div>
+        <div class="metricas financeiro-metricas">
+          <article class="metrica destaque-verde"><span>Recebido</span><strong id="fin-recebido">R$ 0,00</strong><small>já entrou</small></article>
+          <article class="metrica"><span>Pendente</span><strong id="fin-pendente">R$ 0,00</strong><small>a receber</small></article>
+          <article class="metrica"><span>Despesas</span><strong id="fin-despesas">R$ 0,00</strong><small>pagas no mês</small></article>
+          <article class="metrica"><span>Saldo</span><strong id="fin-saldo">R$ 0,00</strong><small>recebido menos despesas</small></article>
+        </div>
+        <div class="duas-colunas">
+          <div class="bloco"><div class="titulo-bloco"><div><h3>Pagamentos</h3><p>Registre quando e como recebeu.</p></div></div><div id="lista-pagamentos" class="lista"></div></div>
+          <div class="bloco"><div class="titulo-bloco"><div><h3>Despesas</h3><p>Produtos, materiais e contas.</p></div></div><div id="lista-despesas" class="lista"></div></div>
+        </div>
+      </section>
+
+      <section id="tela-resumos" class="tela oculto">
+        <div class="topo-pagina"><div><p class="sobrelinha">VISÃO MENSAL</p><h2>Resumos</h2><p class="texto-suave">O resultado do mês em uma tela simples.</p></div></div>
+        <div class="barra-filtro"><label for="resumo-mes">Mês</label><input type="month" id="resumo-mes"></div>
+        <div id="resumo-cards" class="metricas"></div>
+        <div class="duas-colunas">
+          <div class="bloco"><div class="titulo-bloco"><div><h3>Serviços mais realizados</h3><p>O que mais saiu no mês.</p></div></div><div id="resumo-servicos" class="lista"></div></div>
+          <div class="bloco"><div class="titulo-bloco"><div><h3>Clientes que mais voltaram</h3><p>Quantidade de atendimentos.</p></div></div><div id="resumo-clientes" class="lista"></div></div>
+        </div>
+      </section>
+
+      <section id="tela-lixeira" class="tela oculto">
+        <div class="topo-pagina"><div><p class="sobrelinha">SEGURANÇA</p><h2>Lixeira de clientes</h2><p class="texto-suave">Clientes excluídos ficam aqui por 3 dias e depois são apagados automaticamente.</p></div></div>
+        <div class="aviso"><strong>Importante:</strong> restaurar devolve a cliente à lista. Os atendimentos antigos continuam registrados mesmo após a limpeza.</div>
+        <div id="lista-lixeira" class="lista grade-lista"></div>
       </section>
     </main>
   </div>
@@ -114,7 +152,6 @@
     </div>
   </div>
   <div id="toast" class="toast oculto" role="status"></div>
-
   <script src="js/api.js"></script>
   <script src="js/app.js"></script>
 </body>
