@@ -31,7 +31,7 @@ create table if not exists public.agendamentos (
   servico_id bigint references public.servicos(id) on delete set null,
   servico_nome text not null check (char_length(trim(servico_nome)) between 1 and 255),
   data date not null,
-  hora time not null,
+  hora time,
   status text not null default 'agendado' check (status in ('agendado','confirmado','em_andamento','concluido','faltou','cancelado')),
   observacoes text,
   created_at timestamptz not null default now(),

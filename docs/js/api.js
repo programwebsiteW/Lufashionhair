@@ -79,7 +79,7 @@ function dadosAgendamento(dados) {
     servico_id: dados.servico_id || null,
     servico_nome: dados.servico_nome,
     data: dados.data,
-    hora: dados.hora,
+    hora: dados.hora || null,
     duracao_minutos: Number(dados.duracao_minutos || 60),
     valor_servico: dados.valor_servico === '' || dados.valor_servico == null ? null : Number(dados.valor_servico),
     status: dados.status || 'agendado',
