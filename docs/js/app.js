@@ -253,3 +253,4 @@ function desenharRanking(id,itens,campo){const contagem={};itens.forEach(i=>cont
 async function atualizarSistema(){await carregarServicos();await carregarCalendario();await Promise.all([carregarAgenda(diaSelecionado),carregarInicio(),carregarFinanceiro(),carregarDespesas(),carregarResumos()]);}
 
 if(getToken())setTimeout(()=>entrarNoPainel().catch(()=>{}),0);
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));

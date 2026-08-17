@@ -49,3 +49,23 @@
 .card-agendamento .item-info{grid-column:2;grid-row:1;width:100%;min-width:0}
 .card-agendamento .acoes{grid-column:1/-1;grid-row:2;width:100%;padding-left:0;margin-top:11px;justify-content:flex-start}
 @media(max-width:480px){.card-agendamento{column-gap:10px;padding:12px}.card-agendamento .hora-destaque{min-width:54px}.card-agendamento .acoes button{flex:1 1 auto}}
+
+/* Experiência principal em celular */
+@media(max-width:720px){
+  .painel{padding-bottom:126px}
+  .conteudo{padding:20px 12px}
+  .menu-lateral{height:118px;padding:6px 8px}
+  .menu-lateral nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;overflow:visible}
+  .menu-lateral .nav-btn{min-width:0;min-height:50px;flex:none;padding:5px 2px;font-size:10px;line-height:1.15}
+  .menu-lateral .nav-btn span{font-size:16px;margin-bottom:2px}
+  .topo-pagina{display:grid;grid-template-columns:1fr;gap:14px}
+  .topo-pagina .btn-primario{width:100%;min-height:46px;margin:0;white-space:normal}
+  .filtros-status{display:grid;grid-template-columns:1fr 1fr;gap:7px;overflow:visible}
+  .filtro-status{min-height:42px;padding:8px 7px}
+  .modal-fundo{padding:8px}
+  .modal{width:100%;max-height:calc(100dvh - 16px);padding:22px 16px}
+  .modal-botoes{position:sticky;bottom:-1px;z-index:2;background:#fff;padding:10px 0 2px;margin-top:16px}
+  .modal-botoes button,.acoes button{min-height:42px}
+  .campo input,.campo select,.campo textarea{min-height:46px}
+  .toast{left:12px;right:12px;bottom:130px;text-align:center}
+}

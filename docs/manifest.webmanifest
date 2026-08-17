@@ -1,0 +1,25 @@
+{
+  "name": "Lu Fashion Hair",
+  "short_name": "Lu Fashion",
+  "description": "Agenda, clientes e financeiro da Lu Fashion Hair.",
+  "lang": "pt-BR",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f5f3",
+  "theme_color": "#342a40",
+  "icons": [
+    {
+      "src": "/assets/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
